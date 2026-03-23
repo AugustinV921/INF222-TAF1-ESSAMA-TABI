@@ -1,34 +1,61 @@
-# 🚀 TAF 1 - INF222 : API BACKEND DE BLOG (NODE.JS & SQLITE)
+#  TAF 1 - INF222 : SYSTÈME DE GESTION DE BLOG (BACKEND & API REST)
 
-Ce projet a été réalisé dans le cadre de l'unité d'enseignement **INF222 - Développement Backend**. Il consiste en la création d'une API RESTful complète pour la gestion d'un blog, couplée à une interface Frontend moderne et dynamique.
+##  Présentation du Projet
+Ce projet s'inscrit dans le cadre de l'unité d'enseignement **INF222 - Développement Backend (EC1)**. Il consiste en la conception et la réalisation d'une application de blog complète, articulée autour d'une architecture client-serveur. 
 
----
-
-## 📝 Présentation du Projet
-L'objectif principal était de concevoir un système capable de gérer des articles de blog de manière persistante en utilisant un **SGBD (Système de Gestion de Base de données)**. 
-
-### Fonctionnalités clés :
-- **CRUD Complet** : Création, Lecture, Mise à jour et Suppression d'articles.
-- **Persistance des données** : Utilisation de SQLite3 (base de données par fichier).
-- **Recherche Dynamique** : Moteur de recherche par mot-clé intégré.
-- **Interface Premium** : Frontend responsive avec Tailwind CSS et animations.
+L'objectif principal est de démontrer la maîtrise des concepts fondamentaux du web : la gestion des protocoles HTTP, la manipulation d'un **SGBD (Système de Gestion de Base de Données)** et la création d'une interface utilisateur (Frontend) dynamique consommant une API REST.
 
 ---
 
-## 🛠️ Stack Technique
-- **Backend** : Node.js & Express.js
-- **Base de données** : SQLite3 (Fichier `blog.db`)
-- **Frontend** : HTML5, JavaScript (Fetch API), Tailwind CSS
-- **Tests** : Postman
+##  Stack Technologique
+Le projet repose sur une pile technologique moderne et robuste :
+
+| Composant | Technologie | Rôle |
+| :--- | :--- | :--- |
+| **Runtime** | **Node.js** | Environnement d'exécution JavaScript côté serveur. |
+| **Framework** | **Express.js** | Gestion du routage, des middlewares et des requêtes HTTP. |
+| **SGBD** | **SQLite3** | Base de données relationnelle légère pour la persistance des données. |
+| **Middleware** | **CORS & Body-Parser** | Sécurité des échanges et traitement des données JSON. |
+| **Frontend** | **HTML5 / Tailwind CSS** | Interface utilisateur responsive et stylisée. |
+| **API Client** | **JavaScript (Fetch API)** | Communication asynchrone entre le Frontend et le Backend. |
 
 ---
 
-## 📥 Installation et Lancement
+##  Fonctionnalités Implémentées
 
-### 1. Prérequis
-Assurez-vous d'avoir [Node.js](https://nodejs.org/) installé sur votre machine (Version 16 ou supérieure recommandée).
+### 1. Gestion des Articles (CRUD)
+- **Create** : Ajout de nouveaux articles avec validation des champs (Titre, Auteur, Contenu).
+- **Read** : Visualisation de la liste globale ou filtrage par catégorie.
+- **Update** : Modification partielle ou totale des articles existants via l'ID.
+- **Delete** : Suppression définitive d'un enregistrement en base de données.
 
-### 2. Installation des dépendances
-Ouvrez votre terminal dans le dossier du projet et exécutez :
-```bash
-npm install
+### 2. Moteur de Recherche
+- Recherche plein texte (Full-text search) permettant de trouver des articles par mots-clés présents dans le titre ou le corps du texte.
+
+### 3. Persistance des Données
+- Contrairement à un stockage volatil en mémoire vive (RAM), l'utilisation de **SQLite** garantit que les articles sont conservés dans le fichier `blog.db` même après l'arrêt du serveur.
+
+---
+
+## 📡 Documentation de l'API (Points de terminaison)
+
+L'API suit les standards **RESTful**. Voici le détail des endpoints disponibles :
+
+| Méthode | URL | Description | Code HTTP (Succès) |
+| :--- | :--- | :--- | :--- |
+| **GET** | `/api/articles` | Récupère la liste de tous les articles. | `200 OK` |
+| **GET** | `/api/articles/:id` | Récupère un article spécifique par son identifiant. | `200 OK` |
+| **GET** | `/api/articles/search?query=...` | Recherche des articles par mot-clé. | `200 OK` |
+| **POST** | `/api/articles` | Crée un nouvel article (Objet JSON requis). | `201 Created` |
+| **PUT** | `/api/articles/:id` | Modifie un article existant via son ID. | `200 OK` |
+| **DELETE** | `/api/articles/:id` | Supprime un article spécifique. | `200 OK` |
+
+### Exemple de corps de requête (JSON) pour un POST :
+```json
+{
+  "titre": "Introduction au Backend",
+  "contenu": "Le développement backend est essentiel pour la gestion des données...",
+  "auteur": "Jean Eboa",
+  "categorie": "Informatique",
+  "tags": "nodejs, express, tp"
+}
